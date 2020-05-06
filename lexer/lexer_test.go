@@ -337,7 +337,7 @@ if (5 < 10) {
 			got := l.NextToken()
 
 			if diff := cmp.Diff(got, c.want); diff != "" {
-				t.Errorf("unexpected returned value\n%s", diff)
+				t.Errorf("unexpected return value\n%s", diff)
 			}
 		})
 	}
