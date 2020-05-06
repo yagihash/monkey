@@ -16,6 +16,17 @@ x + y;
 };
 
 let result = add(five, ten);
+!-/*5;
+5 < 10 > 5;
+
+if (5 < 10) {
+	return true;
+} else {
+	return false;
+}
+
+10 == 10;
+10 != 9;
 `
 	cases := []struct {
 		name string
@@ -163,6 +174,154 @@ let result = add(five, ten);
 		},
 		{
 			name: "let result = add(five, ten);",
+			want: token.Token{Type: token.SEMICOLON, Literal: ";"},
+		},
+		{
+			name: "!-/*5;",
+			want: token.Token{Type: token.NOT, Literal: "!"},
+		},
+		{
+			name: "!-/*5;",
+			want: token.Token{Type: token.MINUS, Literal: "-"},
+		},
+		{
+			name: "!-/*5;",
+			want: token.Token{Type: token.SLASH, Literal: "/"},
+		},
+		{
+			name: "!-/*5;",
+			want: token.Token{Type: token.ASTERISK, Literal: "*"},
+		},
+		{
+			name: "!-/*5;",
+			want: token.Token{Type: token.INT, Literal: "5"},
+		},
+		{
+			name: "!-/*5;",
+			want: token.Token{Type: token.SEMICOLON, Literal: ";"},
+		},
+		{
+			name: "5 < 10 > 5;",
+			want: token.Token{Type: token.INT, Literal: "5"},
+		},
+		{
+			name: "5 < 10 > 5;",
+			want: token.Token{Type: token.LT, Literal: "<"},
+		},
+		{
+			name: "5 < 10 > 5;",
+			want: token.Token{Type: token.INT, Literal: "10"},
+		},
+		{
+			name: "5 < 10 > 5;",
+			want: token.Token{Type: token.GT, Literal: ">"},
+		},
+		{
+			name: "5 < 10 > 5;",
+			want: token.Token{Type: token.INT, Literal: "5"},
+		},
+		{
+			name: "5 < 10 > 5;",
+			want: token.Token{Type: token.SEMICOLON, Literal: ";"},
+		},
+		{
+			name: "if (5 < 10) {",
+			want: token.Token{Type: token.IF, Literal: "if"},
+		},
+		{
+			name: "if (5 < 10) {",
+			want: token.Token{Type: token.LPAREN, Literal: "("},
+		},
+		{
+			name: "if (5 < 10) {",
+			want: token.Token{Type: token.INT, Literal: "5"},
+		},
+		{
+			name: "if (5 < 10) {",
+			want: token.Token{Type: token.LT, Literal: "<"},
+		},
+		{
+			name: "if (5 < 10) {",
+			want: token.Token{Type: token.INT, Literal: "10"},
+		},
+		{
+			name: "if (5 < 10) {",
+			want: token.Token{Type: token.RPAREN, Literal: ")"},
+		},
+		{
+			name: "if (5 < 10) {",
+			want: token.Token{Type: token.LBRACE, Literal: "{"},
+		},
+		{
+			name: "return true;",
+			want: token.Token{Type: token.RETURN, Literal: "return"},
+		},
+		{
+			name: "return true;",
+			want: token.Token{Type: token.TRUE, Literal: "true"},
+		},
+		{
+			name: "return true;",
+			want: token.Token{Type: token.SEMICOLON, Literal: ";"},
+		},
+		{
+			name: "} else {",
+			want: token.Token{Type: token.RBRACE, Literal: "}"},
+		},
+		{
+			name: "} else {",
+			want: token.Token{Type: token.ELSE, Literal: "else"},
+		},
+		{
+			name: "} else {",
+			want: token.Token{Type: token.LBRACE, Literal: "{"},
+		},
+		{
+			name: "return false;",
+			want: token.Token{Type: token.RETURN, Literal: "return"},
+		},
+		{
+			name: "return false;",
+			want: token.Token{Type: token.FALSE, Literal: "false"},
+		},
+		{
+			name: "return false;",
+			want: token.Token{Type: token.SEMICOLON, Literal: ";"},
+		},
+		{
+			name: "}",
+			want: token.Token{Type: token.RBRACE, Literal: "}"},
+		},
+		{
+			name: "10 == 10;",
+			want: token.Token{Type: token.INT, Literal: "10"},
+		},
+		{
+			name: "10 == 10;",
+			want: token.Token{Type: token.EQ, Literal: "=="},
+		},
+		{
+			name: "10 == 10;",
+			want: token.Token{Type: token.INT, Literal: "10"},
+		},
+		{
+			name: "10 == 10;",
+			want: token.Token{Type: token.SEMICOLON, Literal: ";"},
+		},
+		{
+			name: "10 != 9;",
+			want: token.Token{Type: token.INT, Literal: "10"},
+		},
+		{
+			name: "10 != 9;",
+			want: token.Token{Type: token.NOT_EQ, Literal: "!="},
+		},
+		{
+			name: "10 != 9;",
+			want: token.Token{Type: token.INT, Literal: "9"},
+		},
+		{
+			name: "10 != 9;",
 			want: token.Token{Type: token.SEMICOLON, Literal: ";"},
 		},
 		{
