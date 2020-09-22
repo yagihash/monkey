@@ -27,6 +27,8 @@ if (5 < 10) {
 
 10 == 10;
 10 != 9;
+"foobar"
+"foo bar"
 `
 	cases := []struct {
 		name string
@@ -323,6 +325,14 @@ if (5 < 10) {
 		{
 			name: "10 != 9;",
 			want: token.Token{Type: token.SEMICOLON, Literal: ";"},
+		},
+		{
+			name: "foobar",
+			want: token.Token{Type: token.STRING, Literal: "foobar"},
+		},
+		{
+			name: "foo bar",
+			want: token.Token{Type: token.STRING, Literal: "foo bar"},
 		},
 		{
 			name: "EOF",

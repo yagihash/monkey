@@ -299,6 +299,20 @@ if (10 > 1) {
 			})
 		}
 	})
+
+	t.Run("StringLiteral", func(t *testing.T) {
+		input := `"Hello World!"`
+
+		evaluated := testEval(t, input)
+		str, ok := evaluated.(*object.String)
+		if !ok {
+			t.Fatalf("object is not String. got=%T", evaluated)
+		}
+
+		if str.Value != "Hello World!" {
+			t.Errorf("String has wrong value. got=%q", str.Value)
+		}
+	})
 }
 
 func testNullObject(t *testing.T, obj object.Object) bool {
