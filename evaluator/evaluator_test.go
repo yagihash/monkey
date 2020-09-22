@@ -220,6 +220,10 @@ if (10 > 1) {
 				"foobar",
 				"identifier not found: foobar",
 			},
+			{
+				`"Hello" - "World"`,
+				"unknown operator: STRING - STRING",
+			},
 		}
 
 		for _, c := range cases {
@@ -311,6 +315,46 @@ if (10 > 1) {
 
 		if str.Value != "Hello World!" {
 			t.Errorf("String has wrong value. got=%q", str.Value)
+		}
+	})
+
+	t.Run("StringCOncatenation", func(t *testing.T) {
+		input := `"Hello" + " " + "World!"`
+
+		evaluated := testEval(t, input)
+		str, ok := evaluated.(*object.String)
+		if !ok {
+			t.Fatalf("object is not String. got=%T (%+v)", evaluated, evaluated)
+		}
+
+		if str.Value != "Hello World!" {
+			t.Errorf("String has wrong value. got=%q", str.Value)
+		}
+	})
+
+	t.Run("StringComparison", func(t *testing.T) {
+		cases := []struct {
+			input string
+			want  bool
+		}{
+			{`"aaa" == "aaa"`, true},
+			{`"aaa" == "bbb"`, false},
+			{`"aaa" != "aaa"`, false},
+			{`"aaa" != "bbb"`, true},
+		}
+
+		for _, c := range cases {
+			t.Run(c.input, func(t *testing.T) {
+				evaluated := testEval(t, c.input)
+				result, ok := evaluated.(*object.Boolean)
+				if !ok {
+					t.Fatalf("object is not Boolean. got=%T (%+v)", evaluated, evaluated)
+				}
+
+				if result.Value != c.want {
+					t.Errorf("Result is not true. got=%t", result.Value)
+				}
+			})
 		}
 	})
 }
