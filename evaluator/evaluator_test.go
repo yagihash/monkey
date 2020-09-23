@@ -357,6 +357,40 @@ if (10 > 1) {
 			})
 		}
 	})
+
+	t.Run("BuiltinFunctions", func(t *testing.T) {
+		cases := []struct {
+			input string
+			want  interface{}
+		}{
+			{`len("")`, 0},
+			{`len("four")`, 4},
+			{`len("hello world")`, 11},
+			{`len(1)`, "argument to `len` not supported, got INTEGER"},
+			{`len("one", "two")`, "wrong number of arguments. got=2, want=1"},
+		}
+
+		for _, c := range cases {
+			t.Run(c.input, func(t *testing.T) {
+				evaluated := testEval(t, c.input)
+
+				switch want := c.want.(type) {
+				case int:
+					testIntegerObject(t, evaluated, int64(want))
+				case string:
+					errObj, ok := evaluated.(*object.Error)
+					if !ok {
+						t.Errorf("object is not Error. got=%T (%+v)", evaluated, evaluated)
+						return
+					}
+					if errObj.Message != want {
+						t.Errorf("wrong error message. expected=%q, got=%q",
+							want, errObj.Message)
+					}
+				}
+			})
+		}
+	})
 }
 
 func testNullObject(t *testing.T, obj object.Object) bool {
